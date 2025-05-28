@@ -1,0 +1,95 @@
+
+a = 10;
+b = 3.14;
+var_13 = .0;
+c = a + b * 2;  
+d = (a - 5) / b;  
+
+
+e = 2 ^ 3 ^ 2; 
+f = (2 ^ 3) ^ 2;  
+
+
+g = ((a > 5) && (b < 4));  
+h = ((a == 10) || (b != 3.14));  
+
+
+if (a > b) {
+    max_ = a;  
+} elif (b > a) {
+    max_ = b;
+} else {
+    max_ = 0;
+}
+
+if (a < 5) {
+    print(a);
+} elif (b < 3) {
+    print(b);
+} else {
+    default_case = 42;  
+}
+
+
+counter = 0;
+sum = 0;
+while (counter < 5) {
+    sum += counter;
+    ++counter;
+}  
+
+
+x = 10;
+x += 5;  
+x -= 3; 
+x *= 2;  
+x /= 4;  
+
+
+y = 10;
+++y;  
+--y;  
+
+
+print(a);  
+print(abs(-5)); 
+print(sqrt(16));  
+print(max(10, 20)); 
+print(min(10, 20)); 
+
+
+result = (a + b * 2) ^ (c - d) / e + f * g - h;  
+
+
+if (result > 50) {
+    step = 2;
+    temp = 0;
+    while (temp < 20) {
+        if (temp/2 > 10) {
+            print(temp);
+        }
+        temp += step;
+    }
+	print(0);
+} elif (result > 25) {
+    print(1);
+} elif (result > 20) {
+    print(2);
+}
+ else {
+    print(3);
+}
+
+
+print(10 == 10);  
+print(10 != 10);  
+print(5 < 10);  
+print(5 > 10);  
+print(10 <= 10); 
+print(10 >= 11);  
+
+
+print((1 == 1) || (2 == 1));  
+print(!( (a + b) > (c * d) ));  
+print(a == b || c == d && e == e);  
+print((a == b || c == d) && e == f);  

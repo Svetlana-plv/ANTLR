@@ -1,5 +1,8 @@
 #include <string>
 #include <sstream>
+#include <fstream>
+#include <string>
+#include <stdexcept>
 
 #include "translatorLexer.h"
 #include "translatorVisitor.h"
@@ -54,11 +57,37 @@ std::string power() {
 	return "a=2^3;";
 }
 
+std::string test_program() {
+	const std::string filename = "../test_program.txt";
 
+	std::ifstream file(filename);
+	if (!file) {
+		throw std::runtime_error("Could not open file: " + filename);
+	}
+
+	try {
+		std::ostringstream ss;
+		ss << file.rdbuf();
+		return ss.str();
+	}
+	catch (...) {
+		file.close();
+		throw std::runtime_error("Error reading file: " + filename);
+	}
+}
 
 int main() {
 
-	std::string expression = while_();
+	std::string expression;
+
+	try {
+		expression = test_program();
+		std::cout << "Test program:\n" << program << std::endl;
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+	}
+
 	std::stringstream stream(expression);
 
 	antlr4::ANTLRInputStream input(stream);

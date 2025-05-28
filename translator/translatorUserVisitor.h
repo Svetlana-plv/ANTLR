@@ -52,6 +52,7 @@ public:
 	int size() {
 		return variables.size();
 	}
+
 };
 
 class  translatorUserVisitor : public translatorBaseVisitor {
@@ -63,20 +64,20 @@ public:
 
 	//expr
 	virtual std::any visitArth_expr_node(translatorParser::Arth_expr_nodeContext* ctx) override {
-		std::cout << "Arth_expr_node" << std::endl;
+		//std::cout << "Arth_expr_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->arth_expr()));
 		return val;
 	}
 
 	virtual std::any visitLogic_expr_node(translatorParser::Logic_expr_nodeContext* ctx) override {
-		std::cout << "Logic_expr_node" << std::endl;
+		//std::cout << "Logic_expr_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->logic_expr()));
 		return val;
 	}
 
 	// add, sub
 	virtual std::any visitTerm_ADD_SUB_expr(translatorParser::Term_ADD_SUB_exprContext* ctx) override {
-		std::cout << "Term_ADD_SUB_expr" << std::endl;
+		//std::cout << "Term_ADD_SUB_expr" << std::endl;
 		float left = std::any_cast<float>(visit(ctx->arth_expr()));
 		float right = std::any_cast<float>(visit(ctx->term()));
 		
@@ -92,7 +93,7 @@ public:
 
 	// mul, div
 	virtual std::any visitPower_MUL_DIV_term(translatorParser::Power_MUL_DIV_termContext* ctx) override {
-		std::cout << "Factor_MUL_DIV_term" << std::endl;
+		//std::cout << "Power_MUL_DIV_term" << std::endl;
 		float left = std::any_cast<float>(visit(ctx->term()));
 		float right = std::any_cast<float>(visit(ctx->power()));
 		
@@ -112,35 +113,35 @@ public:
 
 	// term
 	virtual std::any visitTerm_node(translatorParser::Term_nodeContext* ctx) override {
-		std::cout << "Term_node" << std::endl;
+		//std::cout << "Term_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->term()));
 		return val;
 	}
 
 	// power
 	virtual std::any visitPower_node(translatorParser::Power_nodeContext* ctx) override {
-		std::cout << "Power_node" << std::endl;
+		//std::cout << "Power_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->power()));
 		return val;
 	}
 
 	// factor
 	virtual std::any visitPOW_node(translatorParser::POW_nodeContext* ctx) override {
-		std::cout << "POW_node" << std::endl;
+		//std::cout << "POW_node" << std::endl;
 		float left = std::any_cast<float>(visit(ctx->factor()));
 		float right = std::any_cast<float>(visit(ctx->power()));
 		return std::pow(left, right);
 	}
 
 	virtual std::any visitFactor_node(translatorParser::Factor_nodeContext* ctx) override {
-		std::cout << "Factor_node" << std::endl;
+		//std::cout << "Factor_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->factor()));
 		return val;
 	}
 
 	// arith_factor
 	virtual std::any visitLBR_expr_RBR(translatorParser::LBR_expr_RBRContext* ctx) override {
-		std::cout << "LBR_expr_RBR" << std::endl;
+		//std::cout << "LBR_expr_RBR" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->arth_expr()));
 		if (ctx->SUB()) {
 			val = -val;
@@ -149,7 +150,7 @@ public:
 	}
 
 	virtual std::any visitINTEGER_node(translatorParser::INTEGER_nodeContext* ctx) override {
-		std::cout << "INTEGER_node" << std::endl;
+		//std::cout << "INTEGER_node" << std::endl;
 		float val = std::stof(ctx->INT()->getText());
 		if (ctx->SUB()) {
 			val = -val;
@@ -158,7 +159,7 @@ public:
 	}
 
 	virtual std::any visitFLOAT_node(translatorParser::FLOAT_nodeContext* ctx) override {
-		std::cout << "FLOAT_node" << std::endl;
+		//std::cout << "FLOAT_node" << std::endl;
 		float val = std::stof(ctx->FLOAT()->getText());
 		if (ctx->SUB()) {
 			val = -val;
@@ -167,7 +168,7 @@ public:
 	}
 
 	virtual std::any visitVARIABLE_node(translatorParser::VARIABLE_nodeContext* ctx) override {
-		std::cout << "VARIABLE_node" << std::endl;
+		//std::cout << "VARIABLE_node" << std::endl;
 		std::string name = ctx->VAR()->getText();
 		float val = variables.get(name);
 		if (ctx->SUB()) {
@@ -181,7 +182,7 @@ public:
 	// compare
 
 	virtual std::any visitCompare_eq_node(translatorParser::Compare_eq_nodeContext* ctx) override {
-		std::cout << "Compare_eq_node" << std::endl;
+		//std::cout << "Compare_eq_node" << std::endl;
 		float left;
 		float right;
 		auto left_arth = ctx->arth_expr(0);
@@ -209,7 +210,7 @@ public:
 	}
 
 	virtual std::any visitCompare_ne_node(translatorParser::Compare_ne_nodeContext* ctx) override {
-		std::cout << "Compare_ne_node" << std::endl;
+		//std::cout << "Compare_ne_node" << std::endl;
 		float left;
 		float right;
 		auto left_arth = ctx->arth_expr(0);
@@ -237,7 +238,7 @@ public:
 	}
 
 	virtual std::any visitCompare_ls_node(translatorParser::Compare_ls_nodeContext* ctx) override {
-		std::cout << "Compare_ls_node" << std::endl;
+		//std::cout << "Compare_ls_node" << std::endl;
 		float left;
 		float right;
 		auto left_arth = ctx->arth_expr(0);
@@ -262,7 +263,7 @@ public:
 	}
 
 	virtual std::any visitCompare_le_node(translatorParser::Compare_le_nodeContext* ctx) override {
-		std::cout << "Compare_le_node" << std::endl;
+		//std::cout << "Compare_le_node" << std::endl;
 		float left;
 		float right;
 		auto left_arth = ctx->arth_expr(0);
@@ -287,7 +288,7 @@ public:
 	}
 
 	virtual std::any visitCompare_gt_node(translatorParser::Compare_gt_nodeContext* ctx) override {
-		std::cout << "Compare_gt_node" << std::endl;
+		//std::cout << "Compare_gt_node" << std::endl;
 		float left;
 		float right;
 		auto left_arth = ctx->arth_expr(0);
@@ -312,7 +313,7 @@ public:
 	}
 
 	virtual std::any visitCompare_ge_node(translatorParser::Compare_ge_nodeContext* ctx) override {
-		std::cout << "Compare_ge_node" << std::endl;
+		//std::cout << "Compare_ge_node" << std::endl;
 		float left;
 		float right;
 		auto left_arth = ctx->arth_expr(0);
@@ -339,7 +340,7 @@ public:
 	//logic_expr
 	
 	virtual std::any visitNegation_node(translatorParser::Negation_nodeContext* ctx) override {
-		std::cout << "Negation_node" << std::endl;
+		//std::cout << "Negation_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->logic_term()));
 		if (abs(val) > EPS)
 			return 0.0f;
@@ -349,7 +350,7 @@ public:
 	}
 
 	virtual std::any visitOR_node(translatorParser::OR_nodeContext* ctx) override {
-		std::cout << "OR_node" << std::endl;
+		//std::cout << "OR_node" << std::endl;
 		float left = std::any_cast<float>(visit(ctx->logic_term()));
 		float right = std::any_cast<float>(visit(ctx->logic_expr()));
 		if (left || right) return 1.0f;
@@ -357,7 +358,7 @@ public:
 	}
 
 	virtual std::any visitLogic_term_node(translatorParser::Logic_term_nodeContext* ctx) override {
-		std::cout << "Logic_term_node" << std::endl;
+		//std::cout << "Logic_term_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->logic_term()));
 		return val;
 	}
@@ -365,7 +366,7 @@ public:
 	// logic_term
 
 	virtual std::any visitAND_node(translatorParser::AND_nodeContext* ctx) override {
-		std::cout << "AND_node" << std::endl;
+		//std::cout << "AND_node" << std::endl;
 		float left = std::any_cast<float>(visit(ctx->logic_factor()));
 		float right = std::any_cast<float>(visit(ctx->logic_term()));
 
@@ -374,7 +375,7 @@ public:
 	}
 
 	virtual std::any visitLogic_factor_node(translatorParser::Logic_factor_nodeContext* ctx) override {
-		std::cout << "Logic_term_node" << std::endl;
+		//std::cout << "Logic_term_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->logic_factor()));
 		return val;
 	}
@@ -382,26 +383,26 @@ public:
 	// logic_factor
 
 	virtual std::any visitLBR_logic_expr_RBR(translatorParser::LBR_logic_expr_RBRContext* ctx) override {
-		std::cout << "LBR_logic_expr_RBR" << std::endl;
+		//std::cout << "LBR_logic_expr_RBR" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->logic_expr()));
 		return val;
 	}
 
 	virtual std::any visitCompare_node(translatorParser::Compare_nodeContext* ctx) override {
-		std::cout << "Compare_node" << std::endl;
+		//std::cout << "Compare_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->compare()));
 		return val;
 	}
 
 	virtual std::any visitArth_logic_node(translatorParser::Arth_logic_nodeContext* ctx) override {
-		std::cout << "Arth_logic_node" << std::endl;
+		//std::cout << "Arth_logic_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->arth_expr()));
 		return val;
 	}
 
 	// elif
 	virtual std::any visitElif_node(translatorParser::Elif_nodeContext* ctx) override {
-		std::cout << "Elif_node" << std::endl;
+		//std::cout << "Elif_node" << std::endl;
 
 		size_t i = 0;
 
@@ -432,7 +433,7 @@ public:
 
 	//while
 	virtual std::any visitWhile_node(translatorParser::While_nodeContext* ctx) override {
-		std::cout << "While_node" << std::endl;
+		//std::cout << "While_node" << std::endl;
 		while (std::any_cast<float>(visit(ctx->logic_expr()))) {
 			std::any_cast<float>(visit(ctx->prog()));
 		}
@@ -441,33 +442,33 @@ public:
 
 	// functions
 	virtual std::any visitPrint_node(translatorParser::Print_nodeContext* ctx) override {
-		std::cout << "Print_node" << std::endl;
+		//std::cout << "Print_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->expr()));
 		res.push_back(val);
 		return val;
 	}
 
 	virtual std::any visitAbs_node(translatorParser::Abs_nodeContext* ctx) override {
-		std::cout << "ABS_node" << std::endl;
+		//std::cout << "ABS_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->expr()));
 		return std::abs(val);
 	}
 
 	virtual std::any visitSqrt_node(translatorParser::Sqrt_nodeContext* ctx) override {
-		std::cout << "Sqrt_node" << std::endl;
+		//std::cout << "Sqrt_node" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->expr()));
 		return std::sqrt(val);
 	}
 
 	virtual std::any visitMax_node(translatorParser::Max_nodeContext* ctx) override {
-		std::cout << "Max_node" << std::endl;
+		//std::cout << "Max_node" << std::endl;
 		float left = std::any_cast<float>(visit(ctx->expr(0)));
 		float right = std::any_cast<float>(visit(ctx->expr(1)));
 		return std::max(left, right);
 	}
 
 	virtual std::any visitMin_node(translatorParser::Min_nodeContext* ctx) override {
-		std::cout << "Min_node" << std::endl;
+		//std::cout << "Min_node" << std::endl;
 		float left = std::any_cast<float>(visit(ctx->expr(0)));
 		float right = std::any_cast<float>(visit(ctx->expr(1)));
 		return std::min(left, right);
@@ -476,7 +477,7 @@ public:
 
 	// expr sep
 	virtual std::any visitExpr_sep(translatorParser::Expr_sepContext* ctx) override {
-		std::cout << "Expr_sep" << std::endl;
+		//std::cout << "Expr_sep" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->expr()));
 		//res.push_back(val);
 		return val;
@@ -484,7 +485,7 @@ public:
 
 	// Assign
 	virtual std::any visitASGN_sep(translatorParser::ASGN_sepContext* ctx) override {
-		std::cout << "ASGN_sep" << std::endl;
+		//std::cout << "ASGN_sep" << std::endl;
 		std::string name = ctx->VAR()->getText();
 		float val = std::any_cast<float>(visit(ctx->expr()));
 		variables.set(name, val);
@@ -492,7 +493,7 @@ public:
 	}
 
 	virtual std::any visitADD_ASGN_sep(translatorParser::ADD_ASGN_sepContext* ctx) override {
-		std::cout << "ADD_ASGN_sep" << std::endl;
+		//std::cout << "ADD_ASGN_sep" << std::endl;
 		std::string name = ctx->VAR()->getText();
 		float val = std::any_cast<float>(visit(ctx->expr()));
 		float res = val + variables.get(name);
@@ -501,7 +502,7 @@ public:
 	}
 
 	virtual std::any visitSUB_ASGN_sep(translatorParser::SUB_ASGN_sepContext* ctx) override {
-		std::cout << "SUB_ASGN_sep" << std::endl;
+		//std::cout << "SUB_ASGN_sep" << std::endl;
 		std::string name = ctx->VAR()->getText();
 		float val = std::any_cast<float>(visit(ctx->expr()));
 		float res = variables.get(name) - val;
@@ -510,7 +511,7 @@ public:
 	}
 
 	virtual std::any visitMUL_ASGN_sep(translatorParser::MUL_ASGN_sepContext* ctx) override {
-		std::cout << "MUL_ASGN_sep" << std::endl;
+		//std::cout << "MUL_ASGN_sep" << std::endl;
 		std::string name = ctx->VAR()->getText();
 		float val = std::any_cast<float>(visit(ctx->expr()));
 		float res = val * variables.get(name);
@@ -519,7 +520,7 @@ public:
 	}
 
 	virtual std::any visitDIV_ASGN_sep(translatorParser::DIV_ASGN_sepContext* ctx) override {
-		std::cout << "DIV_ASGN_sep" << std::endl;
+		//std::cout << "DIV_ASGN_sep" << std::endl;
 		std::string name = ctx->VAR()->getText();
 		float val = std::any_cast<float>(visit(ctx->expr()));
 		float res;
@@ -534,14 +535,14 @@ public:
 
 	// inc, dec
 	virtual std::any visitINC_sep(translatorParser::INC_sepContext* ctx) override {
-		std::cout << "INC_sep" << std::endl;
+		//std::cout << "INC_sep" << std::endl;
 		std::string name = ctx->VAR()->getText();
 		variables.inc(name);
 		return variables.get(name);
 	}
 
 	virtual std::any visitDEC_sep(translatorParser::DEC_sepContext* ctx) override {
-		std::cout << "DEC_sep" << std::endl;
+		//std::cout << "DEC_sep" << std::endl;
 		std::string name = ctx->VAR()->getText();
 		variables.dec(name);
 		return variables.get(name);
@@ -551,14 +552,14 @@ public:
 
 	// row
 	virtual std::any visitMult_line_prog(translatorParser::Mult_line_progContext* ctx) override {
-		std::cout << "Mult_line_prog" << std::endl;
+		//std::cout << "Mult_line_prog" << std::endl;
 		std::any_cast<float>(visit(ctx->prog()));
 		float val = std::any_cast<float>(visit(ctx->row()));
 		return val;
 	}
 
 	virtual std::any visitOne_line_prog(translatorParser::One_line_progContext* ctx) override {
-		std::cout << "One_line_prog" << std::endl;
+		//std::cout << "One_line_prog" << std::endl;
 		float val = std::any_cast<float>(visit(ctx->row()));
 		return val;
 	}
